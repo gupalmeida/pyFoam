@@ -1,0 +1,199 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2112                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      snappyHexMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+castellatedMesh true;
+snap true;
+addLayers false;
+
+singleRegionName true;
+mergePatchFaces true;
+mergeAcrossPatches false;
+keepPatches false;
+
+geometry
+{
+};
+
+castellatedMeshControls
+{
+
+    features
+    (
+    );
+
+    refinementSurfaces
+    {
+        sphere.stl
+        {
+            level (2 2);
+
+            regions
+            {
+            }
+
+            patchInfo
+            {
+            }
+
+            // gapLevelIncrement 2;
+            // perpendicularAngle 10;
+            // faceZone sphere;
+            // cellZone sphere;
+            // cellZoneInside inside;
+            // insidePoint    (1 1 1);
+            // faceType baffle;
+            // blockLevel 10;
+        }
+    }
+
+    refinementRegions
+    {
+    }
+
+    limitRegions
+    {
+    }
+
+    faceZoneControls
+    {
+    }
+    
+    maxLocalCells 100000;
+    maxGlobalCells 2000000;
+    minRefinementCells 0;
+    maxLoadUnbalance 0.10;
+    nCellsBetweenLevels 1;
+    resolveFeatureAngle 30;
+    planarAngle 30;
+    allowFreeStandingZoneFaces true;
+    locationInMesh (5 0.28 0.43);
+    locationsOutsideMesh ((100 100 100));
+    // handleSnapProblems false;
+    // useTopologicalSnapDetection false;
+    // interfaceRefine false;
+    // nCellZoneErodeIter 2;
+    // minCellFraction 0.001;
+}
+
+snapControls
+{
+    nSmoothPatch 3;
+    // nSmoothInternal $nSmoothPatch;
+    tolerance 2.0;
+    nSolveIter 30;
+    nRelaxIter 5;
+    // detectNearSurfacesSnap false;
+    nFeatureSnapIter 10;
+    implicitFeatureSnap true;
+    explicitFeatureSnap false;
+    multiRegionFeatureSnap false;
+    // nFaceSplitInterval 5;
+    //detectBaffles false;
+    //releasePoints true;
+    //stringFeatures false;
+    avoidDiagonal false;
+    concaveAngle 45;
+    minAreaRatio 0.3;
+    strictRegionSnap false;
+}
+
+addLayersControls
+{
+    relativeSizes true;
+    // thicknessModel firstAndOverall;
+    // thicknessModel firstAndExpansion;
+    // thicknessModel finalAndExpansion;
+    // thicknessModel overallAndExpansion;
+    // thicknessModel firstAndRelativeFinal;
+
+    expansionRatio 1.4;
+    finalLayerThickness 0.3;
+    minThickness 0.1;
+
+    layers
+    {
+    }
+
+    nGrow 0;
+    featureAngle 120;
+    mergePatchFacesAngle $featureAngle;
+    maxFaceThicknessRatio 0.5;
+    nSmoothSurfaceNormals 1;
+    nSmoothThickness 10;
+
+    //meshShrinker displacementMotionSolver;
+    //solver displacementLaplacian;
+    //displacementLaplacianCoeffs
+    //{
+    //    diffusivity quadratic inverseDistance
+    //    (
+    //        sphere.stl_firstSolid
+    //        maxY
+    //    );
+    //}
+
+    minMedialAxisAngle 90;
+    maxThicknessToMedialRatio 0.3;
+    nSmoothNormals 3;
+    //nMedialAxisIter 10;
+    //nSmoothDisplacement 0;
+    //detectExtrusionIsland false;
+    //layerTerminationAngle 25;
+    //disableWallEdges true;
+    slipFeatureAngle 60;
+    nRelaxIter 5;
+    nBufferCellsNoExtrude 0;
+    nLayerIter 50;
+    nRelaxedIter 20;
+    //additionalReporting true;
+}
+
+meshQualityControls
+{
+    #include "meshQualityDict"
+
+    relaxed
+    {
+        maxNonOrtho 75;
+    }
+
+    nSmoothScale 4;
+    errorReduction 0.75;
+}
+
+// Advanced
+// Debug flags
+debugFlags
+(
+   mesh            // write intermediate meshes
+   intersections   // write current mesh intersections as .obj files
+   featureSeeds    // write information about explicit feature edge
+                   // refinement
+   attraction      // write attraction as .obj files
+   layerInfo       // write information about layers
+);
+
+writeFlags
+(
+   scalarLevels    // write volScalarField with cellLevel for postprocessing
+   layerSets       // write cellSets, faceSets of faces in layer
+   layerFields     // write volScalarField for layer coverage
+);
+
+setFormat vtk; //ensight;
+mergeTolerance 1e-6;
+
+// ************************************************************************* //
