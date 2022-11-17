@@ -1,0 +1,16 @@
+system:
+  - "controlDict"
+  - "fvSchemes"
+  - "fvSolution"
+  - "fvOptions"
+  - "blockMeshDict"
+  - "snappyHexMeshDict"
+  - "meshDict"
+  - "extrudeMeshDict"
+
+constant:
+  - "turbulenceProperties"
+  - incompressible:
+    - "transportProperties"
+  - compressible:
+    - "thermophysicalProperties"
