@@ -8,7 +8,7 @@ setup(
     author_email='comp.cfd@gmail.com',
     install_requires=[
         'requests',
-        'importlib-metadata; python_version == "3.8"',
+        'importlib-metadata; python_version == "3.7"',
         'numpy',
         'pandas',
         'pyyaml'
